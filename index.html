@@ -19,27 +19,84 @@
   <link rel="stylesheet" href="CSS/profilepic2.css">
   <link rel="icon" href="IEEE-Logo.svg" type="image/icon type">
   <title>IEEE</title>
+   <!-- FIX: Added CSS to prevent scrolling during loader -->
+   <style>
+    /* Prevent scrolling while loader is active */
+    body.loading {
+      overflow: hidden !important;
+      height: 100vh !important;
+    }
+    
+    /* Ensure loader stays on top */
+    #loaderWrapper {
+      position: fixed !important;
+      top: 50% !important;
+      left: 50% !important;
+      transform: translate(-50%, -50%) !important;
+      z-index: 9999 !important;
+      background-color: rgba(0, 0, 0, 0.8);
+      width: 100vw !important;
+      height: 100vh !important;
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+    }
+    
+    /* Ensure main content is completely hidden during loading */
+    #mainContent.loading {
+      display: none !important;
+      visibility: hidden !important;
+    }
+  </style>
 
   
   <script>
 
-setTimeout(function() {
-    // Fade out the loader
-    document.getElementById('loaderWrapper').style.opacity = '0';
-
-    // After the fade-out animation completes, hide the loader and show the main content
     setTimeout(function() {
-      // Hide the loader
-      document.getElementById('loaderWrapper').style.display = 'none';
-
-      // Show and fade in the main content
-      document.getElementById('mainContent').style.display = 'block';
-      document.getElementById('mainContent').style.opacity = '1';
-    }, 2000); // Match this duration with the CSS transition time #1000,3000 default
-  }, 2000);
+      // Fade out the loader
+      document.getElementById('loaderWrapper').style.opacity = '0';
+      document.getElementById('loaderWrapper').style.transition = 'opacity 1s ease-out';
+  
+      // After the fade-out animation completes, hide the loader and show the main content
+      setTimeout(function() {
+        // FIX: Ensure we're at the top before showing content
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+        
+        // Remove loading class from body to restore scrolling
+        document.body.classList.remove('loading');
+        
+        // Hide the loader
+        document.getElementById('loaderWrapper').style.display = 'none';
+  
+        // Show and fade in the main content
+        const mainContent = document.getElementById('mainContent');
+        mainContent.classList.remove('loading');
+        mainContent.style.display = 'block';
+        mainContent.style.visibility = 'visible';
+        
+        // Small delay to ensure display change is processed
+        setTimeout(function() {
+          mainContent.style.opacity = '1';
+          // Final scroll to top to be absolutely sure
+          window.scrollTo(0, 0);
+        }, 50);
+        
+      }, 1000); // Match transition duration
+    }, 2000);
 
 document.addEventListener("DOMContentLoaded", function() {
-    // Typewriter effect and IntersectionObserver initialization
+  // FIX: Add loading class to prevent scrolling during load
+  document.body.classList.add('loading');
+  document.getElementById('mainContent').classList.add('loading');
+  
+  // Force scroll to top on page load
+  window.scrollTo(0,0);
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+  
+  // Typewriter effect and IntersectionObserver initialization
     const sections = document.querySelectorAll('.animate-on-scroll');
     const options = {
         root: null,
@@ -213,10 +270,10 @@ document.addEventListener("DOMContentLoaded", function() {
                       <a class="nav-link active" aria-current="page" href="#home">Home</a>
                   </li>
                   <li class="nav-item pe-5">
-                      <a class="nav-link" href="#about">About</a>
+                      <a class="nav-link" href="#events">Events</a>
                   </li>
                   <li class="nav-item pe-5">
-                      <a class="nav-link" href="#events">Events</a>
+                    <a class="nav-link" href="#about">About</a>
                   </li>
                   <li class="nav-item pe-5">
                       <a class="nav-link" href="#membership">Membership</a>
@@ -848,17 +905,21 @@ document.addEventListener("DOMContentLoaded", function() {
                 <p><strong>Department:</strong> Department of Aerospace</p>
                 <p>Student Leader<br>Department of Aerospace</p>
                 <p><strong>Email:</strong> jagruthraj@ieee.org</p>
+                <div class="social-links">
+                  <a href="https://www.instagram.com/nagula_astro/" target="_blank"><i class="fab fa-instagram"></i></a>
+                  <a href="https://www.linkedin.com/in/nagula-jithin-raj-427687230/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
               </div>
             </div>
           </div>
 
-          <!-- Senior Coordinators Section -->
+          <!-- Senior Coordinators Section --
           <div class="row justify-content-center" style="margin-bottom: 20px;">
             <div class="row">
               <h1 class="text-center m-5 text-light">Senior Co-ordinators</h1>
             </div>
             <div class="senior-coordinators-grid">
               <!-- Priya Dharshini -->
+              <!--
               <div class="bearer-box">
                 <div class="bearer-image">
                   <img src="images/about/priyuu ma.jpeg" alt="Priya Dharshini">
@@ -875,8 +936,10 @@ document.addEventListener("DOMContentLoaded", function() {
                   </div>
                 </div>
               </div>
+              -->
 
               <!-- Varshini -->
+              <!--
               <div class="bearer-box">
                 <div class="bearer-image">
                   <img src="images/about/Varshini.jpeg" alt="Varshini">
@@ -892,9 +955,11 @@ document.addEventListener("DOMContentLoaded", function() {
                     <a href="https://linkedin.com/in/varshini-ieee" target="_blank"><i class="fab fa-linkedin-in"></i></a>
                   </div>
                 </div>
-              </div>
+              </div>  
+              -->
 
               <!-- Saharsh -->
+              <!--
               <div class="bearer-box">
                 <div class="bearer-image">
                   <img src="images/about/Saharsh.jpeg" alt="Saharsh">
@@ -911,8 +976,10 @@ document.addEventListener("DOMContentLoaded", function() {
                   </div>
                 </div>
               </div>
+              -->
 
               <!-- Ruben -->
+              <!--
               <div class="bearer-box">
                 <div class="bearer-image">
                   <img src="images/about/ruben.jpeg" alt="Ruben">
@@ -929,6 +996,7 @@ document.addEventListener("DOMContentLoaded", function() {
                   </div>
                 </div>
               </div>
+              -->
             </div>
           </div>
         </div>
@@ -1202,9 +1270,9 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="col-md-4 mt-4" style="position: relative; background-size: cover;padding: 0%; background-position: center; background-image: url('images/Contanct/contact.jpg');">
       <div style="position: absolute; top: 0; left: 0;margin-right: 0; width: 100%; height: 100%; background-color: rgba(10, 10, 10, 0.5); z-index: 1;padding: 0%;"></div>
       <h2 class="text-center pt-4" style="position: relative; z-index: 2;"><i class="fa-solid fa-envelope fa-2xl" style="color: #ffffff;"></i> Email</h2>
-      <p class="text-center" style="position: relative; z-index: 2;">jayasuryap@ieee.org</p>
+      <p class="text-center" style="position: relative; z-index: 2;">sb.ieee.karunya@gmail.com</p>
       <h2 class="text-center pt-4 m-4" style="position: relative; z-index: 2;"><i class="fa-solid fa-phone fa-2xl" style="color: #ffffff;"></i> Phone</h2>
-      <p class="text-center" style="position: relative; z-index: 2;">+91 8248188509 / +91 7358651234</p>
+      <p class="text-center" style="position: relative; z-index: 2;">+91 8630797801 / +91 8088873718</p>
       <h2 class="text-center pt-4 m-4" style="position: relative; z-index: 2;"><i class="fa-solid fa-location-dot fa-2xl" style="color: #ffffff;"></i> Address</h2>
       <p class="text-center" style="position: relative; z-index: 2;">Karunya Institute of Technology and Sciences, <br>Karunya Nagar, Coimbatore,<br>Tamil Nadu - (641114)</p>
     </div>
@@ -1258,17 +1326,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
   <div class="p-4 m-0 d-flex flex-column align-items-center" style="background-color:rgba(0, 0, 0, 0.499);">
     <div class="d-flex justify-content-center gap-3" style="width: auto;">
-      <div><a href="#"><i class="fa-brands fa-facebook fa-2xl" style="color: #ffffff;"></i></a></div>
+      <div><a href="                #                "><i class="fa-brands fa-facebook fa-2xl" style="color: #ffffff;"></i></a></div>
       <div><a href="https://www.instagram.com/ieee_karunya_/"><i class="fa-brands fa-instagram fa-2xl" style="color: #ffffff;"></i></a></div>
       <div><a href="tel:+919701653823"><i class="fa-solid fa-phone fa-2xl" style="color: #ffffff;"></i></a></div>
-      <div><a href="#"><i class="fa-brands fa-youtube fa-2xl" style="color: #ffffff;"></i></a></div>
       <div><a href="https://www.linkedin.com/company/ieee-karunya/mycompany/"><i class="fa-brands fa-linkedin fa-2xl" style="color: #ffffff;"></i></a></div>
     </div>
     <div class="d-flex justify-content-center p-4">
       <div class="d-flex justify-content-center gap-2" style="width: auto;">
         <div><a href="#home" style="color: aliceblue;">Home</a></div>
-        <div><a href="#about" style="color: aliceblue;">About</a></div>
         <div><a href="#events" style="color: aliceblue;">Events</a></div>
+        <div><a href="#about" style="color: aliceblue;">About</a></div>
         <div><a href="#membership" style="color: aliceblue;">Membership</a></div>
         <div><a href="#contacts" style="color: aliceblue;">Contacts</a></div>
       </div>
